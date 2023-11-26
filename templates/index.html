@@ -1,41 +1,32 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  </head>
-  <body>
-    <h1>Test Demo</h1>
-    <div>
-      <div id="chatbox">
-        <p class="botText"><span>Good Day~</span></p>
-      </div>
-      <div id="userInput">
-        <input id="textInput" type="text" name="msg" placeholder="Message">
-        <input id="buttonInput" type="submit" value="Send">
-      </div>
-      <script>
-        function getBotResponse() {
-          var rawText = $("#textInput").val();
-          var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
-          $("#textInput").val("");
-          $("#chatbox").append(userHtml);
-          document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
-          $.get("/get", { msg: rawText }).done(function(data) {
-            var botHtml = '<p class="botText"><span>' + data + '</span></p>';
-            $("#chatbox").append(botHtml);
-            document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
-          });
+<html lang="en">
+<head>
+    <!-- ... (head sebelumnya) ... -->
+    <style>
+        #character-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
         }
-        $("#textInput").keypress(function(e) {
-            if(e.which == 13) {
-                getBotResponse();
-            }
-        });
-        $("#buttonInput").click(function() {
-          getBotResponse();
-        })
-      </script>
+
+        #character-info img {
+            width: 50px;  /* Sesuaikan ukuran ikon karakter */
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="character-info">
+        <img src="{{ character.icon }}" alt="{{ character.name }} icon">
+        <div>
+            <h2>{{ character.name }}</h2>
+            <p>{{ character.description }}</p>
+        </div>
     </div>
-  </body>
+
+    <h1>Chatbot</h1>
+    <!-- ... (form dan script sebelumnya) ... -->
+</body>
 </html>
